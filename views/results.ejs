@@ -36,7 +36,7 @@
             <%})%>
         <%}%>
 
-<%if(Object.entries(preptime).length||Object.entries(instruct).length!==0){%>
+<%if(Object.entries(preptime).length||Object.entries(instruct).length!==0||Object.entries(findIngri).length!==0){%>
     <div class="container">
        <div class="row">
           <div class="col-md-6 col-md-offset-3 ">
@@ -44,23 +44,32 @@
           </div>
             <div class="col-md-6 col-md-offset-3 ">
                   <%var prepeTime = recipes(preptime,allings)%>
-              <%}else{%>
-                  <p>No find or no selected time preparation min/name</p>
-              <%}%>
+
           </div>
             <div class="col-md-6 col-md-offset-3 ">
                   <div class="recipeSearch">
-                    <%if(Object.entries(findIngri).length!==0){%>
                       <%findIngri.forEach(function(ingri){%>
-                          <%=ingri.ingredients_id.name%>
-                          <%=ingri.recipe_id[0].author%>
-                          <%=ingri.recipe_id[0].name%>
-                          <%=ingri.recipe_id[0].source%>
-                          <%=ingri.recipe_id[0].prepTime%>
-                          <%=ingri.recipe_id[0].prepInstruct%>
+                        <div class="nameSarch"><%=ingri.recipe_id[0].name%></div>
+                        <div class="authorSearch"><%=ingri.recipe_id[0].author%></div>
+                        <div class="sourceSearch"><%=ingri.recipe_id[0].source%></div>
+                        <div class="prepSearch"><% var num =ingri.recipe_id[0].prepTime%></div>
+                        <% var h =(num/60) %>
+                        <% var rHours =Math.floor(h) %>
+                        <% var min =(h-rHours)*60 %>
+                        <% var rMin =Math.floor(min) %>
+                          <li class="recipeTimePreparation"><%=rHours%>h
+                            <% if(rMin<10){%>
+                              0<%=rMin%>
+                            <%}else{%>
+                              <%=rMin%>
+                             <%}%>min</li>
+                          <div class="prepInstrSearch"> <%=ingri.recipe_id[0].prepInstruct%></div>
+                          <span class="ingrShow">
+                              •<span class="ingriDec">   <%=ingri.ingredients_id.name%> </span>, <span class="quantShow">  <%=ingri.quantity%></span>
+                          </span>
                       <%})%>
                       <%}else{%>
-                          <p>No find or not selecetd ingrients</p>
+                          <p>No results</p>
                       <%}%>
               </div>
           </div>
