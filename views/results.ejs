@@ -1,0 +1,69 @@
+<% include partials/header %>
+<%allings%>
+<%findIngri%>
+<%preptime%>
+<h1 class="title"><span class="brend">fresh</span> Recipes <span class="titleResSearch">Results</span></h1>
+        <%var recipes = function(x,y){%>
+            <% x.forEach(function(oneRec){ %>
+                <div class="recipeSearch">
+                    <div class="nameSarch"><%=oneRec.name%></div>
+                    <div class="authorSearch"><%=oneRec.author%></div>
+                    <div class="sourceSearch"><%=oneRec.source%></div>
+                    <div class="prepSearch"><% var num =oneRec.prepTime%></div>
+                    <% var num =oneRec.prepTime %>
+                    <% var h =(num/60) %>
+                    <% var rHours =Math.floor(h) %>
+                    <% var min =(h-rHours)*60 %>
+                    <% var rMin =Math.floor(min) %>
+                      <li class="recipeTimePreparation"><%=rHours%>h
+                        <% if(rMin<10){%>
+                          0<%=rMin%>
+                        <%}else{%>
+                          <%=rMin%>
+                         <%}%>min</li>
+                    <div class="prepInstrSearch"><%=oneRec.prepInstruct%></div>
+                </div>
+
+                <div class="recipeSearch">
+                  <% y.forEach(function(recipe){ %>
+                      <% if(oneRec.id  == recipe.recipe_id[0]._id){%>
+                        <span class="ingrShow">
+                            •<span class="ingriDec"> <%=recipe.ingredients_id.name%> </span>, <span class="quantShow"><%=recipe.quantity%></span>
+                        </span>
+                        <% } %>
+                    <% }) %>
+                </div>
+            <%})%>
+        <%}%>
+
+<%if(Object.entries(preptime).length||Object.entries(instruct).length!==0){%>
+    <div class="container">
+       <div class="row">
+          <div class="col-md-6 col-md-offset-3 ">
+              <%var prepeInstrac = recipes(instruct,allings)%>
+          </div>
+            <div class="col-md-6 col-md-offset-3 ">
+                  <%var prepeTime = recipes(preptime,allings)%>
+              <%}else{%>
+                  <p>No find or no selected time preparation min/name</p>
+              <%}%>
+          </div>
+            <div class="col-md-6 col-md-offset-3 ">
+                  <div class="recipeSearch">
+                    <%if(Object.entries(findIngri).length!==0){%>
+                      <%findIngri.forEach(function(ingri){%>
+                          <%=ingri.ingredients_id.name%>
+                          <%=ingri.recipe_id[0].author%>
+                          <%=ingri.recipe_id[0].name%>
+                          <%=ingri.recipe_id[0].source%>
+                          <%=ingri.recipe_id[0].prepTime%>
+                          <%=ingri.recipe_id[0].prepInstruct%>
+                      <%})%>
+                      <%}else{%>
+                          <p>No find or not selecetd ingrients</p>
+                      <%}%>
+              </div>
+          </div>
+    </div>
+</div>
+<% include partials/footer %>

@@ -1,0 +1,44 @@
+<% include partials/header %>
+<div class="divDeco">
+
+</div>
+<div class="container">
+  <div class="row">
+    <div class="col-md-8 col-md-offset-2">
+      <div class="showRecipe">
+        <div class="showTitle">
+          <%=showRecipe.name%>
+        </div>
+        <div class="showTime">
+          <span class="timeText">preparation time </span><% var num =showRecipe.prepTime %>
+          <% var h =(num/60) %>
+          <% var rHours =Math.floor(h) %>
+          <% var min =(h-rHours)*60 %>
+          <% var rMin =Math.floor(min) %>
+          <li><%=rHours%>h
+            <% if(rMin<10){%>
+              0<%=rMin%>
+            <%}else{%>
+              <%=rMin%>
+             <%}%>min</li>
+        </div>
+        <div class="showText">
+          <%=showRecipe.prepInstruct%>
+        </div>
+        <div>
+          <li class="showIngridi">ingredients</li>
+          <% showIng.forEach(function(recipe){ %>
+            <% if(showRecipe.id==recipe.recipe_id[0]){%>
+                  <span class="ingrShow">
+                      •<span class="ingriDec"> <%=recipe.ingredients_id.name %> </span>, <span class="quantShow"> <%=recipe.quantity%></span>
+                  </span>
+              <% } %>
+            <% }) %>
+        </div>
+        <h1 class="showTitlePage"><span class="brendShow">fresh</span> Recipes</h1>
+    </div>
+    <p class="authorShow"> <i>submittet by: <%=showRecipe.author%></i></p>
+    </div>
+  </div>
+</div>
+<% include partials/footer %>

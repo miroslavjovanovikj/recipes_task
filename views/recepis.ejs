@@ -1,0 +1,82 @@
+<% include partials/header %>
+<h1 class="title"><span class="brend">fresh</span> Recipes</h1>
+
+<div class="createRecipe">
+  <a href="/recepis/new"><button class="createButt">Create</button></a>
+</div>
+
+
+
+
+
+<div class="container">
+  <div class="row">
+    <div class="searchBtn">
+      <form  action="/results" method="post">
+        <div class="col-md-3 searchCls ">
+          <select class="selectIng" name="ingredients">
+            <option value="select" selected>Select Ingredient</option>
+              <%listIngr.forEach(function(list){%>
+            <option value="<%=list.name%>"><%=list.name%></option>
+             <%})%>
+           </select>
+         </div>
+         <div class="col-md-3 searchCls">
+              <input  class="searchBar"type="number" name="prepTime" placeholder="Put minutes">
+         </div>
+          <div class="col-md-3 searchCls">
+              <input class="searchText"type="text" name="br" placeholder="Put Text">
+          </div>
+          <div class="col-md-3  searchCls ">
+            <button class="searchBut">Search <i class="fas fa-search"></i></button>
+          </div>
+      </form>
+    </div>
+      <% oneRcipe.forEach(function(oneRec){ %>
+        <div class="col-md-4">
+          <div class="posts">
+            <div class="authorStyle">
+                <i>submitet by · <strong><%=oneRec.author%></strong></i>
+            </div>
+            <h1 class="titleItem"><span class="brend">fresh</span> Recipes</h1>
+            <h5><strong><%=oneRec.name%></strong></h5>
+            <div class="recipeContent">
+              <% var inst = oneRec.prepInstruct%>
+              <li class="preparation"><%=inst.substring(0,55).substring(0,Math.min(inst.substring(0,55).length,inst.substring(0,55).lastIndexOf(" ")))%></li>
+              <li class="source"><%= oneRec.source%></li>
+              <div class="recipeTimePreparation">
+                <% var num =oneRec.prepTime %>
+                <% var h =(num/60) %>
+                <% var rHours =Math.floor(h) %>
+                <% var min =(h-rHours)*60 %>
+                <% var rMin =Math.floor(min) %>
+                <li class="recipeTimePreparation"><%=rHours%>h
+                  <% if(rMin<10){%>
+                    0<%=rMin%>
+                  <%}else{%>
+                    <%=rMin%>
+                   <%}%>min</li>
+              </div>
+            </div>
+            <% findAll.forEach(function(recipe){ %>
+                 <% if(oneRec.id  == recipe.recipe_id[0]._id){%>
+                     <span class="ingredients">
+                       <%var names=recipe.ingredients_id.name%>
+                       <% var nameList=[names.toUpperCase(),recipe.quantity]%>
+                           <%if(nameList.length>2){%>
+                               <%=nameList.slice(0, 3)%>
+                             <%}else{%>
+                               <%=nameList %>
+                         <%}%>
+                     </span>
+                      <% } %>
+                  <% }) %>
+                <div class="btnHome">
+                  <a href="/recepis/<%=oneRec._id%>">show more</a>
+                </div>
+              </div>
+          </div>
+        <% }) %>
+  </div>
+</div>
+<% include partials/footer %>
