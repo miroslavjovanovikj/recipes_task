@@ -5,12 +5,12 @@
     <div class="col-md-6 col-md-offset-3">
       <div class="formCreate">
         <form  action="/recepis" method="post">
-          <input class="form-control nameMargin" type="text" name="recipe[author]" placeholder="Your name">
+          <input class="form-control nameMargin" type="text" name="recipe[author]" placeholder="Your name" required>
           <h4>Create Your Recepi</h4>
-          <input class="form-control" type="text" name="recipe[name]" placeholder="title">
-          <input class="form-control" type="text" name="recipe[source]" placeholder="source">
-          <input class="form-control" type="number" name="recipe[prepTime]" placeholder="Put pereparation time in minutes">
-          <textarea name="recipe[prepInstruct]" class="form-control textMargin" rows="8" cols="80"placeholder="preparation instraction"></textarea>
+          <input class="form-control" type="text" name="recipe[name]" placeholder="title" required>
+          <input class="form-control" type="text" name="recipe[source]" placeholder="source" required>
+          <input class="form-control" type="number" name="recipe[prepTime]" placeholder="Put pereparation time in minutes" required>
+          <textarea name="recipe[prepInstruct]" class="form-control textMargin" rows="8" cols="80"placeholder="preparation instraction" required></textarea>
               <%for(var i=0;i<listIng.length;i++){%>
                 <div class="col-md-5 col-md-offset-1 borderIngr"   >
                     <div class="nameChack">
